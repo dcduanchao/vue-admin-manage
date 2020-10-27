@@ -1,6 +1,7 @@
 package com.example.dc.service;
 
 import com.example.dc.entity.user.RoleEntity;
+import com.example.dc.from.RoleMenuSaveFrom;
 import com.example.dc.utils.ElAdminResultBeans;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface RoleService {
     ElAdminResultBeans deletedRole(Integer id);
 
     ElAdminResultBeans roleMenuList(Integer roleId);
+
+    ElAdminResultBeans allRoleMenuList();
+
+    ElAdminResultBeans saveRoleMenu(RoleMenuSaveFrom saveFrom);
 }

@@ -2,6 +2,7 @@ package com.example.dc.controller;
 
 import com.example.dc.entity.user.MenuEntity;
 import com.example.dc.entity.user.RoleEntity;
+import com.example.dc.from.RoleMenuSaveFrom;
 import com.example.dc.service.MenuService;
 import com.example.dc.service.RoleService;
 import com.example.dc.utils.ElAdminResultBeans;
@@ -71,6 +72,17 @@ public class RoleMenuController {
     @GetMapping("/role/menu")
     public  ElAdminResultBeans roleMenuList(Integer roleId){
         ElAdminResultBeans beans =  roleService.roleMenuList(roleId);
+        return  beans;
+    }
+    @GetMapping("/all/role/menu")
+    public  ElAdminResultBeans allRoleMenuList(){
+        ElAdminResultBeans beans =  roleService.allRoleMenuList();
+        return  beans;
+    }
+
+    @PostMapping("/save/role/menu")
+    public  ElAdminResultBeans saveRoleMenu(@RequestBody RoleMenuSaveFrom saveFrom){
+        ElAdminResultBeans beans =  roleService.saveRoleMenu(saveFrom);
         return  beans;
     }
 

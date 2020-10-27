@@ -8,16 +8,21 @@ import com.example.dc.entity.user.MenuEntity;
 import com.example.dc.entity.user.RoleEntity;
 import com.example.dc.entity.user.RoleMenuEntity;
 import com.example.dc.entity.user.UserRoleEntity;
+import com.example.dc.from.RoleMenuSaveFrom;
 import com.example.dc.service.RoleService;
 import com.example.dc.utils.ElAdminResultBeans;
 import com.example.dc.utils.ResponseUtils;
+import com.example.dc.vo.RoleMenuVo;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -58,7 +63,7 @@ public class RoleServiceImpl implements RoleService {
                 List<Integer> menuIds = roleMenu.stream().map(RoleMenuEntity::getMenuId).distinct().collect(Collectors.toList());
                 List<MenuEntity> byIdIn = menuRepository.findByIdIn(menuIds);
                 if(CollectionUtils.isNotEmpty(byIdIn)){
-                    auth= byIdIn.stream().map(MenuEntity::getPermission).collect(Collectors.toList());
+                    auth= byIdIn.stream().filter(p->StringUtils.isNotBlank(p.getPermission())).map(MenuEntity::getPermission).collect(Collectors.toList());
                 }
             }
         }
@@ -94,8 +99,51 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public ElAdminResultBeans roleMenuList(Integer roleId) {
         List<RoleMenuEntity> byRoleId = roleMenuRepository.findByRoleId(roleId);
-        
+        if(CollectionUtils.isEmpty(byRoleId)){
+            return ResponseUtils.success(Collections.emptyList());
+        }
+        List<Integer> menuIds = byRoleId.stream().map(RoleMenuEntity::getMenuId).collect(Collectors.toList());
+        return ResponseUtils.success(menuIds);
+    }
 
-        return null;
+    @Override
+    public ElAdminResultBeans allRoleMenuList() {
+        List<RoleMenuEntity> all = roleMenuRepository.findAll();
+
+        Map<Integer, List<Integer>> collect = all.stream().collect(Collectors.groupingBy(RoleMenuEntity::getRoleId,
+                Collectors.mapping(RoleMenuEntity::getMenuId, Collectors.toList())));
+//        List<RoleMenuVo> roleMenuVos = new ArrayList<>();
+//        for (Integer roleId : collect.keySet()) {
+//            RoleMenuVo vo = new RoleMenuVo();
+//            vo.setRoleId(roleId);
+//            vo.setMenuIds(collect.get(roleId));
+//            roleMenuVos.add(vo);
+//        }
+        return ResponseUtils.success(collect);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public ElAdminResultBeans saveRoleMenu(RoleMenuSaveFrom saveFrom) {
+        Integer roleId = saveFrom.getRoleId();
+        if(roleId==null){
+            return ResponseUtils.success();
+        }
+        roleMenuRepository.deleteByRoleId(roleId);
+
+        List<Integer> menuIds = saveFrom.getMenuIds();
+        if(CollectionUtils.isNotEmpty(menuIds)){
+            List<RoleMenuEntity> list = new ArrayList<>();
+            menuIds.forEach(p->{
+                RoleMenuEntity roleMenuEntity = new RoleMenuEntity();
+                roleMenuEntity.setRoleId(roleId);
+                roleMenuEntity.setMenuId(p);
+                list.add(roleMenuEntity);
+
+            });
+            roleMenuRepository.saveAll(list);
+        }
+
+        return ResponseUtils.success();
     }
 }
