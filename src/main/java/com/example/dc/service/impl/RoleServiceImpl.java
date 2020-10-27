@@ -93,7 +93,8 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public ElAdminResultBeans roleMenuList(Integer roleId) {
-        roleMenuRepository.findByRoleId(roleId);
+        List<RoleMenuEntity> byRoleId = roleMenuRepository.findByRoleId(roleId);
+        
 
         return null;
     }
