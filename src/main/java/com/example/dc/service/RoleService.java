@@ -19,4 +19,5 @@ public interface RoleService {
 
     ElAdminResultBeans deletedRole(Integer id);
 
+    ElAdminResultBeans roleMenuList(Integer roleId);
 }

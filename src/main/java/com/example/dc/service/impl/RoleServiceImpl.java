@@ -90,4 +90,11 @@ public class RoleServiceImpl implements RoleService {
         roleRepository.deleteById(id);
         return ResponseUtils.success();
     }
+
+    @Override
+    public ElAdminResultBeans roleMenuList(Integer roleId) {
+        roleMenuRepository.findByRoleId(roleId);
+
+        return null;
+    }
 }

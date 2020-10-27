@@ -16,4 +16,10 @@ public interface MenuRepository extends JpaRepository<MenuEntity,Integer>, JpaSp
 
 
     List<MenuEntity> findByIdIn(List<Integer> menuIds);
+
+    List<MenuEntity> findByNameLikeOrderBySortAsc(String name);
+
+    List<MenuEntity> findByTypeInOrderBySortAsc(List<Integer> asList);
+
+
 }

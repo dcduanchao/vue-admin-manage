@@ -11,10 +11,10 @@ import java.util.Objects;
 @Entity
 @Table(name = "menu", schema = "test-mall", catalog = "")
 public class MenuEntity {
-    private int id;
+    private Integer id;
     private String name;
     private String component;
-    private int pid;
+    private Integer pid;
     private Integer sort;
     private String icon;
     private String path;
@@ -26,11 +26,11 @@ public class MenuEntity {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -56,11 +56,11 @@ public class MenuEntity {
 
     @Basic
     @Column(name = "pid", nullable = false)
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
