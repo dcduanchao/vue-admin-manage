@@ -11,15 +11,24 @@ import java.util.Objects;
 @Entity
 @Table(name = "user", schema = "test-mall", catalog = "")
 public class UserEntity {
-    private int id;
+    private Integer id;
     private String userName;
     private String pwd;
+    private String nickName;
+    private String phone;
+    private Integer sex;
+    private Integer age;
+    private Integer userStatus;
 
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setId(int id) {
@@ -27,7 +36,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "user_name", nullable = true, length = 100)
+    @Column(name = "user_name", nullable = false, length = 100)
     public String getUserName() {
         return userName;
     }
@@ -37,7 +46,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "pwd", nullable = true, length = 255)
+    @Column(name = "pwd", nullable = false, length = 255)
     public String getPwd() {
         return pwd;
     }
@@ -59,5 +68,55 @@ public class UserEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id, userName, pwd);
+    }
+
+    @Basic
+    @Column(name = "nick_name", nullable = true, length = 100)
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    @Basic
+    @Column(name = "phone", nullable = true, length = 20)
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Basic
+    @Column(name = "sex", nullable = true)
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    @Basic
+    @Column(name = "age", nullable = true)
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    @Basic
+    @Column(name = "user_status", nullable = true)
+    public Integer getUserStatus() {
+        return userStatus;
+    }
+
+    public void setUserStatus(Integer userStatus) {
+        this.userStatus = userStatus;
     }
 }

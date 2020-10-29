@@ -7,6 +7,7 @@ import com.example.dc.utils.JwtUtils;
 import com.example.dc.utils.ResponseUtils;
 import com.example.dc.vo.JwtUser;
 import com.example.dc.vo.JwtUserDto;
+import com.example.dc.vo.user.UserBaseVo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -75,5 +76,22 @@ public class UserController {
         return bean;
     }
 
+
+    @GetMapping("/user/list")
+    public ElAdminResultBeans userList(String userName){
+        ElAdminResultBeans bean =  userService.userList(userName);
+        return bean;
+    }
+    @PostMapping("/user/addoredit")
+    public ElAdminResultBeans addOrEdit(@RequestBody UserBaseVo userBaseVo){
+        ElAdminResultBeans bean =  userService.addOrEdit(userBaseVo);
+        return bean;
+    }
+
+    @GetMapping("/user/deleted")
+    public ElAdminResultBeans deleted(Integer id){
+        ElAdminResultBeans bean =  userService.deleted(id);
+        return bean;
+    }
 
 }
