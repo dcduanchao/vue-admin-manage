@@ -1,6 +1,7 @@
 package com.example.dc.controller;
 
 import com.example.dc.entity.user.UserEntity;
+import com.example.dc.from.UserListFrom;
 import com.example.dc.service.UserService;
 import com.example.dc.utils.ElAdminResultBeans;
 import com.example.dc.utils.JwtUtils;
@@ -91,6 +92,13 @@ public class UserController {
     @GetMapping("/user/deleted")
     public ElAdminResultBeans deleted(Integer id){
         ElAdminResultBeans bean =  userService.deleted(id);
+        return bean;
+    }
+
+
+    @PostMapping("/user/page/list")
+    public ElAdminResultBeans userPageList(@RequestBody UserListFrom userListFrom){
+        ElAdminResultBeans bean =  userService.userPageList(userListFrom);
         return bean;
     }
 

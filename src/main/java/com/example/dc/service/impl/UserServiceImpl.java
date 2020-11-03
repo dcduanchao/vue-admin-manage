@@ -1,12 +1,16 @@
 package com.example.dc.service.impl;
 
+import com.example.dc.bean.PageInfoBean;
+import com.example.dc.bean.ResponsePageBean;
 import com.example.dc.dao.UserRepository;
 import com.example.dc.dao.UserRoleRepository;
 import com.example.dc.entity.user.UserEntity;
 import com.example.dc.entity.user.UserRoleEntity;
+import com.example.dc.from.UserListFrom;
 import com.example.dc.service.UserService;
 import com.example.dc.utils.ElAdminResultBeans;
 import com.example.dc.utils.JwtUtils;
+import com.example.dc.utils.PageUtils;
 import com.example.dc.utils.ResponseUtils;
 import com.example.dc.vo.user.UserBaseVo;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +18,8 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +70,11 @@ public class UserServiceImpl implements UserService {
         } else {
             list =  userRepository.findAll();
         }
+        List<UserBaseVo> userBaseVolist = buildUserBaseVo(list);
+        return ResponseUtils.success(userBaseVolist);
+    }
+
+    private  List<UserBaseVo>  buildUserBaseVo( List<UserEntity> list ){
         List<Integer> userIds = list.stream().map(UserEntity::getId).collect(Collectors.toList());
         List<UserBaseVo> userBaseVolist = new ArrayList<>();
         if(CollectionUtils.isNotEmpty(userIds)){
@@ -81,8 +92,9 @@ public class UserServiceImpl implements UserService {
 
         }
 
-        return ResponseUtils.success(userBaseVolist);
+        return  userBaseVolist;
     }
+
 
     @Transactional
     @Override
@@ -125,5 +137,23 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         userRoleRepository.deleteByUserId(id);
         return  ResponseUtils.success();
+    }
+
+    @Override
+    public ElAdminResultBeans userPageList(UserListFrom userListFrom) {
+        PageInfoBean pageInfoBean = userListFrom.getPageInfo();
+        PageRequest pageRequest = PageUtils.toPageRequest(pageInfoBean, null);
+
+        Page<UserEntity> pageList = userRepository.findAll(pageRequest);
+
+        pageInfoBean =  PageUtils.getPageInfo(pageList);
+        List<UserBaseVo> userBaseVos =  new ArrayList<>();
+        if(pageInfoBean.getTotalCount()>0){
+            userBaseVos = buildUserBaseVo(pageList.getContent());
+        }
+
+        ResponsePageBean bean = new ResponsePageBean(userBaseVos,pageInfoBean);
+
+       return  ResponseUtils.success(bean);
     }
 }

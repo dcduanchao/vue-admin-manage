@@ -1,20 +1,26 @@
-package com.example.dc;
+package com.example.dc.bean;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 /**
  * @ Author     ：duanchao
- * @ Date       ： 11:09 2020/9/15
+ * @ Date       ： 14:48 2020/11/2
  * @ Description：
  */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class StoreDto {
+public class ResponsePageBean<T> {
 
-    private  String  name;
+    private List<T> list;
 
-    private String icon;
+    private PageInfoBean pageInfo;
+
+
+
 }

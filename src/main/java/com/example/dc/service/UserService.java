@@ -1,6 +1,7 @@
 package com.example.dc.service;
 
 import com.example.dc.entity.user.UserEntity;
+import com.example.dc.from.UserListFrom;
 import com.example.dc.utils.ElAdminResultBeans;
 import com.example.dc.vo.user.UserBaseVo;
 
@@ -21,5 +22,7 @@ public interface UserService {
 
     ElAdminResultBeans deleted(Integer id);
 
+
+    ElAdminResultBeans userPageList(UserListFrom userListFrom);
 
 }
