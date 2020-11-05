@@ -97,6 +97,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/auth/**").permitAll()
 //                .antMatchers("/test/**").permitAll()
+                .antMatchers("/file/**").permitAll()
                 .antMatchers("/goods/**").permitAll()
                 .antMatchers("/home/**").permitAll()
                 .antMatchers(anonymousUrls.toArray(new String[0])).permitAll()
