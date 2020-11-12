@@ -178,7 +178,7 @@ public class MinioClientUtils {
     /**
      *
      *@描述   type:通常类型 公有  私有
-     * objectName  存储名称  如果有/ 为多级目录
+     * objectName  存储名称  如果有/ 为多级目录  image/xx.jpg
      *@创建人  duanchao
      *@创建时间  2020/11/6 10:08
      *
@@ -202,6 +202,7 @@ public class MinioClientUtils {
                  .contentType(contentType)
                  .build();
          ObjectWriteResponse objectWriteResponse = minioClient.putObject(putObjectArgs);
+
 
      }
 

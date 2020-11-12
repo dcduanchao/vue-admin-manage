@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.logging.LogRecord;
 
 /**
@@ -26,6 +27,7 @@ public class SimpleCORSFilter implements Filter {
         response.setHeader("Access-Control-Max-Age", "3600");
 
         response.setHeader("Access-Control-Allow-Headers", "access-control-allow-origin, authority, content-type, version-info, X-Requested-With");
+        response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
 
         chain.doFilter(req, res);
     }

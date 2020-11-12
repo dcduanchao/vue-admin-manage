@@ -8,9 +8,9 @@ package com.example.dc.enmus;
 public enum MinioBucketTypeEnum {
 
     /**公有*/
-    PUBLIC_BUCKET(1, "public-bucket"),
+    PUBLIC_BUCKET(0, "public-bucket"),
     /**私有*/
-    PRIVATE_BUCKET(2, "private-bucket");
+    PRIVATE_BUCKET(1, "private-bucket");
 
     private Integer value;
 
