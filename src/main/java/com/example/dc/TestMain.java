@@ -5,10 +5,7 @@ import com.alibaba.fastjson.JSON;
 import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @ Author     ：duanchao
@@ -34,26 +31,48 @@ public class TestMain {
 
 //        int i = 1 / 0;
 
-        TestVo testVo = new TestVo();
-        testVo.setId("1");
-        testVo.setRolesList("2");
-        testVo.setShowRoles("3");
+//        TestVo testVo = new TestVo();
+//        testVo.setId("1");
+//        testVo.setRolesList("2");
+//        testVo.setShowRoles("3");
+//
+//        System.out.println(JSON.toJSONString(testVo));
+//
+//
+//
+//
+//
+//        List<String> betweenTime = getBetweenTime("2020-08-27", "2020-09-09");
+//
+//        System.out.println(betweenTime);
 
-        System.out.println(JSON.toJSONString(testVo));
+            testList();
+    }
+
+    private static void testList() {
+
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.add("d");
+        list.add("e");
+        List<String> list2 = list.subList(0, 2);
 
 
 
 
+//        list.add("7");//在这里可能会导致ConcurrentModificationException
+        list2.add("5");
+        System.out.println(list2);
 
-        List<String> betweenTime = getBetweenTime("2020-08-27", "2020-09-09");
-
-        System.out.println(betweenTime);
-
+        List<String> list1 = Arrays.asList("q","e","r","t");
+        list1.add("4");
 
     }
 
 
-    public static List<String> getBetweenTime(String starttime, String endtime)
+    private static List<String> getBetweenTime(String starttime, String endtime)
     {
         List<String> betweenTime = new ArrayList<>();
         try
