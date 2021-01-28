@@ -100,6 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/file/**").permitAll()
                 .antMatchers("/goods/**").permitAll()
                 .antMatchers("/home/**").permitAll()
+                .antMatchers("/es/**").permitAll()
                 .antMatchers(anonymousUrls.toArray(new String[0])).permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 // 其他都验证
@@ -128,17 +129,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return set;
     }
 
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
+    @Override
+    public void configure(WebSecurity web) throws Exception {
 //        web.ignoring().antMatchers("/v2/api-docs",
 //                "/swagger-resources/configuration/ui",
 //                "/swagger-resources",
 //                "/swagger-resources/configuration/security",
 //                "/swagger-ui.html",
-//                "/auth/**"
+//                "/css/**"
+//
 //
 //        );
-//    }
+
+        web.ignoring().antMatchers(
+                "/static/css/**","/static/images/**","/static/js/**"
+        );
+    }
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
