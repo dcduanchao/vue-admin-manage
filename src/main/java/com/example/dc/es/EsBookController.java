@@ -42,6 +42,9 @@ public class EsBookController {
     @Qualifier("restHighLevelClient")
     private RestHighLevelClient restHighLevelClient;
 
+//    @Autowired
+//    BookVoRepository bookVoRepository;
+
     @Autowired
     private  HtmlPageUtil htmlPageUtil;
 
