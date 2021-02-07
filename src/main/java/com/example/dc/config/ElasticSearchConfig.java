@@ -14,7 +14,7 @@ import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfig
  * @ Date       ： 9:41 2021/1/27
  * @ Description：
  */
-@Configuration
+//@Configuration
 public class ElasticSearchConfig  extends AbstractElasticsearchConfiguration {
 
     @Value("${es.url}")
