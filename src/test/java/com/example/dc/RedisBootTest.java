@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.types.RedisClientInfo;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ Author     ：duanchao
@@ -45,7 +47,8 @@ public class RedisBootTest {
     @Test
     public void zcfz(){
 
-        redisTemplate.opsForValue().set("k1","v1");
+        redisTemplate.opsForValue().set("k2","v1");
+        List<RedisClientInfo> clientList = redisTemplate.getClientList();
         System.out.println(redisTemplate.opsForValue().get("k1"));
     }
 
